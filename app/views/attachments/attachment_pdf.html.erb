@@ -1,0 +1,47 @@
+<% unless attachment.image.attached? %>
+  <div style="margin-top: 10px;">
+    <strong>Name:</strong> <%= attachment.name %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <strong>Disease:</strong> <%= attachment.disease %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <strong>Address 1:</strong> <%= attachment.address_1 %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <strong>Address 2:</strong> <%= attachment.address_2 %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <strong>City:</strong> <%= attachment.city %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <strong>State:</strong> <%= attachment.state %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <strong>Country:</strong> <%= attachment.country %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <strong>Treatment:</strong> <%= attachment.treatment %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <% drugs = [] %>
+    <strong>Drugs:</strong> <% attachment.drugs.each do |drug| %>
+                            <% drugs << drug.name %>,
+                            <% end %>
+    <%= drugs.compact.join(", ") %>
+  </div>
+<% end %>
+
+<% if attachment.image.attached? %>
+  <div style="margin-top: 10px">
+    <img src="data:image/png;base64, <%= attachment.wicked_blob_path %>" style="width: 250px; height: 250px;" alt="Red dot"/>
+  </div>
+<% end %>

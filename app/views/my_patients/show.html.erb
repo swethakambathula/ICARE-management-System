@@ -1,0 +1,236 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Patient Details</h5>
+
+    <div class="row">
+      <div class="col-md-2">
+        <strong>
+          Patient Name
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.name %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Patient Address
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.treatment_city %>,<%= @patient_record.treatment_state %>,<%= @patient_record.treatment_country %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Disease
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.disease %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Blood group
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.blood_group %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Date of birth
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.date_of_birth %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Height
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.height %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Weight
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.weight %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Bed Id
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.bed_id %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Treatment Area
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.treatment_area %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Treatment City
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.treatment_city %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Treatment Country
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.treatment_country %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Comments</h5>
+
+    <%= link_to "New Comment", new_patient_record_comment_path(@patient_record), class: "btn btn-primary float-end" %>
+
+    <!-- Default Table -->
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Comment</th>
+        <th scope="col">Created Date</th>
+        <th scope="col">Created by</th>
+        <th colspan="2">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @patient_record.comments.each do |comment| %>
+        <tr>
+          <td><%= comment.comment %></td>
+          <td><%= comment.added_at.to_datetime %></td>
+          <td><%= comment.user&.name %>(<%= comment.user&.role&.name %>)</td>
+          <td>
+            <% if comment.user == current_user %>
+              <%= link_to "Edit", edit_patient_record_comment_path(comment), class: "btn btn-sm btn-primary" %>
+              <a class="btn btn-sm btn-outline-danger" href="/patient_records/<%= @patient_record.id %>/comments/<%= comment.id %>">Delete</a>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Treatments</h5>
+
+    <%= link_to "New Treatment", new_patient_record_treatment_path(@patient_record), class: "btn btn-primary float-end" %>
+
+    <!-- Default Table -->
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col">Created Date</th>
+        <th colspan="3">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @patient_record.treatments.each do |treatment| %>
+        <tr>
+          <td><%= treatment.description %></td>
+          <td><%= treatment.status %></td>
+          <td><%= treatment.date %></td>
+          <td>
+            <% if treatment.in_progress? %>
+              <a data-turbo-method="put" href="/patient_records/<%= @patient_record.id %>/treatments/<%= treatment.id %>?treatment[status]=completed" class="btn btn-sm btn-outline-primary">Mark as cured</a>
+            <% end %>
+            <%= link_to "Show", patient_record_treatment_path(treatment), class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to "Edit", edit_patient_record_treatment_path(treatment), class: "btn btn-sm btn-primary" %>
+            <a class="btn btn-sm btn-outline-danger" href="/patient_records/<%= @patient_record.id %>/treatments/<%= treatment.id %>">Delete</a>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Prescriptions</h5>
+
+    <%= link_to "New Prescription", new_patient_record_attachment_path(@patient_record), class: "btn btn-primary float-end" %>
+
+    <!-- Default Table -->
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Disease</th>
+        <th scope="col">Treatment</th>
+        <th scope="col">Created Date</th>
+        <th scope="col">Download</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @patient_record.attachments.each do |attachment| %>
+        <tr>
+          <td><%= attachment.name %></td>
+          <td><%= attachment.disease %></td>
+          <td><%= attachment.treatment %></td>
+          <td><%= attachment.created_at.to_date %></td>
+          <td>
+            <%= link_to "Download", rails_blob_path(attachment.file, disposition: 'inline'), target: "_blank", class: "btn btn-sm btn-primary" %>
+            <%= link_to "Edit", edit_patient_record_attachment_path(@patient_record, attachment), class: "btn btn-sm btn-primary" %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

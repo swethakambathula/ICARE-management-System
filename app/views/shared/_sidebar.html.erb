@@ -1,0 +1,62 @@
+<aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+    <% if current_user.role.slug == "doctor" %>
+
+      <li class="nav-item">
+        <a data-turbo="false" class="nav-link " href="/patient_records">
+          <i class="bi bi-grid"></i>
+          <span>iCARE Board </span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a data-turbo="false" class="nav-link " href="/my_patients">
+          <i class="bi bi-grid"></i>
+          <span>My Board </span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a data-turbo="false" class="nav-link " href="/general_drugs">
+          <i class="bi bi-grid"></i>
+          <span>Drugs</span>
+        </a>
+      </li>
+
+    <% elsif current_user.role.slug == "patient" %>
+      <li class="nav-item">
+        <a data-turbo="false" class="nav-link " href="/patient/patient_records">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+    <% elsif current_user.role.slug == "nurse" %>
+      <li class="nav-item">
+        <a data-turbo="false" class="nav-link " href="/nurse/patient_records">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a data-turbo="false" class="nav-link " href="/nurse/my_patients">
+          <i class="bi bi-grid"></i>
+          <span>My Patients</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a data-turbo="false" class="nav-link " href="/nurse/general_drugs">
+          <i class="bi bi-grid"></i>
+          <span>Drugs</span>
+        </a>
+      </li>
+    <% end %>
+
+
+  </ul>
+
+</aside>

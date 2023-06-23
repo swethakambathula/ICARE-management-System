@@ -1,0 +1,64 @@
+<%= simple_form_for @attachment, url: @attachment.new_record? ? patient_record_attachments_path(@attachment.patient_record) : patient_record_attachment_path(@attachment.patient_record, @attachment), html: { "data-turbo": false, class: "row g-3" } do |f| %>
+
+  <div class="col-12">
+    <label class="form-label">Name</label>
+    <%= f.input :name, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Disease</label>
+    <%= f.input :disease, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Drugs</label>
+    <%= f.input :drug_ids, as: :select, collection: Drug.all, input_html: { multiple: true, class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Address 1</label>
+    <%= f.input :address_1, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Address 2</label>
+    <%= f.input :address_2, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">City</label>
+    <%= f.input :city, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">State</label>
+    <%= f.input :state, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Country</label>
+    <%= f.input :country, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Treatment</label>
+    <%= f.input :treatment, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Image</label>
+    <%= f.input :image, as: :file, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script>
+    $(document).ready(function(){
+        $('#attachment_drug_ids').select2({
+            multiple: true
+        });
+    })
+</script>

@@ -1,0 +1,11 @@
+<%= simple_form_for @treatment, url: @treatment.new_record? ? patient_record_treatments_path : patient_record_treatment_path(@treatment), html: { "data-turbo": false, class: "row g-3" } do |f| %>
+
+  <div class="col-12">
+    <label class="form-label">Description</label>
+    <%= f.input :description, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,137 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Patient Details</h5>
+
+    <div class="row">
+      <div class="col-md-2">
+        <strong>
+          Patient Name
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.name %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Patient Address
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.treatment_city %>,<%= @patient_record.treatment_state %>,<%= @patient_record.treatment_country %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Disease
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.disease %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Blood group
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.blood_group %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Date of birth
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.date_of_birth %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Height
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.height %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Weight
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.weight %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Bed Id
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.bed_id %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Treatment Area
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.treatment_area %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Treatment City
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.treatment_city %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <strong>
+          Treatment Country
+        </strong>
+      </div>
+      <div class="col-md-10">
+        <%= @patient_record.treatment_country %>
+      </div>
+    </div>
+    <% unless @patient_record.cured? %>
+    <% if UserPatientRecord.find_by(user_id: current_user.id, patient_record_id: @patient_record.id).nil? %>
+      <% user_patient_records = UserPatientRecord.where(patient_record_id: @patient_record.id) %>
+      <% if can_pick_patient_as_nurse(user_patient_records) %>
+        <a data-turbo-method="put" class="btn btn-sm btn-outline-primary mt-3" href="/nurse/patient_records/<%= @patient_record.id %>/assign_to_nurse">Pick as my patient</a>
+      <% end %>
+    <% end %>
+      <% end %>
+
+    <a href="/nurse/patient_records" class="btn btn-outline-primary mt-3 " style="margin-left: 5px;">Back</a>
+
+  </div>
+</div>

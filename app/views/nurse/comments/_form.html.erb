@@ -1,0 +1,11 @@
+<%= simple_form_for @comment, url: @comment.new_record? ? nurse_patient_record_comments_path : nurse_patient_record_comment_path(@comment), html: { "data-turbo": false, class: "row g-3" } do |f| %>
+
+  <div class="col-12">
+    <label class="form-label">Comment</label>
+    <%= f.input :comment, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>

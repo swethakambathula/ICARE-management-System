@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Drugs</h5>
+
+    <!-- Default Table -->
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Drug name</th>
+        <th scope="col">Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @treatment.treatment_drugs.each do |treatment_drug| %>
+        <tr>
+          <td><%= treatment_drug.drug.name %></td>
+          <td><%= treatment_drug.description %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

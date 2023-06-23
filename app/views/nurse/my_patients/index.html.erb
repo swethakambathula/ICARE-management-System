@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">My Patients</h5>
+
+    <!-- Default Table -->
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Patient Name</th>
+        <th scope="col">Patient Address</th>
+        <th scope="col">Disease</th>
+        <th scope="col">Date of birth</th>
+        <th scope="col">Blood group</th>
+        <th scope="col">Status</th>
+        <th scope="col" colspan="3">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @patient_records.each do |patient_record| %>
+        <tr>
+          <th scope="row"><%= patient_record.name %></th>
+          <td><%= patient_record.user.city %>,<%= patient_record.user.state %>,<%= patient_record.user.country %></td>
+          <td><%= patient_record.disease %></td>
+          <td><%= patient_record.date_of_birth %></td>
+          <td><%= patient_record.blood_group %></td>
+          <td><%= patient_record.status %></td>
+          <td>
+            <%= link_to "show",  nurse_my_patient_path(patient_record), class: "btn btn-sm btn-outline-info" %>
+            <%= link_to "Edit", edit_nurse_patient_record_path(patient_record), class: "btn btn-sm btn-primary" %>
+            <%= link_to "show",  nurse_my_patient_path(patient_record), class: "btn btn-sm btn-info" %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

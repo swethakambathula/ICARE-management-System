@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">All Patients</h5>
+
+    <%= link_to "New Patient Record", new_nurse_patient_record_path, class: "btn btn-sm mb-3 btn-primary float-end" %>
+
+    <!-- Default Table -->
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Patient Name</th>
+        <th scope="col">Patient Address</th>
+        <th scope="col">Disease</th>
+        <th scope="col">Date of birth</th>
+        <th scope="col">Blood group</th>
+        <th scope="col" colspan="3">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @patient_records.each do |patient_record| %>
+        <tr>
+          <th scope="row"><%= patient_record.name %></th>
+          <td><%= patient_record.user.city %>,<%= patient_record.user.state %>,<%= patient_record.user.country %></td>
+          <td><%= patient_record.disease %></td>
+          <td><%= patient_record.date_of_birth %></td>
+          <td><%= patient_record.blood_group %></td>
+          <td>
+            <% unless patient_record.cured? %>
+            <% if UserPatientRecord.find_by(user_id: current_user.id, patient_record_id: patient_record.id).nil? %>
+              <% user_patient_records = UserPatientRecord.where(patient_record_id: patient_record.id) %>
+              <% if can_pick_patient_as_nurse(user_patient_records) %>
+                <a data-turbo-method="put" class="btn btn-sm btn-outline-primary" href="/nurse/patient_records/<%= patient_record.id %>/assign_to_nurse">Pick
+                  as my patient</a>
+              <% end %>
+                <% end %>
+            <% end %>
+            <%= link_to "show", nurse_patient_record_path(patient_record), class: "btn btn-sm btn-info" %>
+
+            <% if !UserPatientRecord.find_by(user_id: current_user.id, patient_record_id: patient_record.id).nil? || patient_record.user == current_user %>
+              <%= link_to "Edit", edit_nurse_patient_record_path(patient_record), class: "btn btn-sm btn-primary" %>
+              <a data-turbo-method="delete" class="btn btn-sm btn-outline-danger" href="/nurse/patient_records/<%= patient_record.id %>">Delete</a>
+            <% end %>
+
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

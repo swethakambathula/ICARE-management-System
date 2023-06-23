@@ -1,0 +1,61 @@
+<%= simple_form_for @patient_record, url: @patient_record.new_record? ? patient_records_path : patient_record_path(@patient_record), html: { "data-turbo": false, class: "row g-3" } do |f| %>
+
+  <div class="col-12">
+    <label class="form-label">Name</label>
+    <%= f.input :name, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Date of birth</label>
+    <%= f.input :date_of_birth, input_html: { class: "form-control" }, html5: true, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Height</label>
+    <%= f.input :height, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Weight</label>
+    <%= f.input :weight, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Bed Id</label>
+    <%= f.input :bed_id, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Blood Group</label>
+    <%= f.input :blood_group, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Treatment Area</label>
+    <%= f.input :treatment_area, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Treatment City</label>
+    <%= f.input :treatment_city, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Treatment State</label>
+    <%= f.input :treatment_state, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Treatment Country</label>
+    <%= f.input :treatment_country, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Disease</label>
+    <%= f.input :disease, input_html: { class: "form-control" }, label: false %>
+  </div>
+
+  <div class="col-12">
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>
